@@ -1,5 +1,6 @@
 from message_generator import MessageGenerator
 import logging
+import time
 from database import Database
 
 import telegram
@@ -71,7 +72,7 @@ class Bot:
         enable_message = 'Riceverai informazioni ogni giorno alle 18:00!'
         chatbot.message.reply_text(enable_message)
     
-    # message to send when /sisable is received
+    # message to send when /disable is received
     def send_disable(self, chatbot, update):
         # remove chat id from the database
         chat_id = chatbot.message.chat_id
@@ -96,15 +97,18 @@ class Bot:
         users = db.get_users()
         db.close()
 
-        # sed updated message to subscribers
+        # send updated message to subscribers
         for user in users:
             try:
                 chat_id = user[0]
                 chatbot.bot.send_message(chat_id, self.message, parse_mode = telegram.ParseMode.MARKDOWN)
+
+                # sleep 35 millisecond to prevent ban for spam
+                time.sleep(0.035)
             except Exception:
                 logging.warning(f"Error sending message for chat_id: {chat_id}.")
         
-    #update the message to send daily
+    # update the message to send daily
     def update_message(self):
         self.messageGenerator.update()
         self.message = messageGenerator.get_message()

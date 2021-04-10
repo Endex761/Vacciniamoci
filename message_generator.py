@@ -1,4 +1,5 @@
 import locale
+from datetime import datetime
 from settings import DATA_FILE, INPUT_DATA
 from data_updater import DataUpdater
 
@@ -20,19 +21,41 @@ class MessageGenerator:
         data = self.du.get_data()
 
         # compute values
-        today = int(data[0])
-        yesterday = int(data[1])
-        increment = today - yesterday
-        percent = today/total_population * 100
-        percent = round(percent, 2)
+        today_first_dose = int(data[0])
+        today_second_dose = int(data[1])
+        yesterday_first_dose = int(data[2])
+        yesterday_second_dose = int(data[3])
 
+        increment_first_dose = today_first_dose - yesterday_first_dose
+        increment_second_dose = today_second_dose - yesterday_second_dose
+        percent_first_dose = round(today_first_dose/total_population * 100, 2)
+        percent_second_dose = round(today_second_dose/total_population * 100, 2)
+        
         # generate the message
-        message = f'Totale vaccinati fino ad oggi: *{today:n}*\n'
-        message += f'Incremento giornaliero: *{increment:n}*\n'
-        message += f'È stato vaccinato il *{percent:n}*% della popolazione\n'
-
+        
+        message =  f'*Report Vaccini {self.parse_date()}*\n'
+        message += f'\n'
+        message += f'*Prima Dose*\n'
+        message += f'Totale vaccinati fino ad oggi: *{today_first_dose:n}*\n'
+        message += f'Incremento giornaliero: *{increment_first_dose:n}*\n'
+        message += f'È stato vaccinato il *{percent_first_dose:n}*% della popolazione\n'
+        message += f'\n'
+        message += f'*Seconda Dose*\n'
+        message += f'Totale vaccinati fino ad oggi: *{today_second_dose:n}*\n'
+        message += f'Incremento giornaliero: *{increment_second_dose:n}*\n'
+        message += f'È stato vaccinato il *{percent_second_dose:n}*% della popolazione\n'
+        
         self.message = message
 
     def update(self) -> None:
         if self.du.update_data():
             self.generate()
+
+    def parse_date(self):
+        months = ['', 'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre']
+        today = datetime.today()
+        year = today.year
+        month = today.month
+        day = today.day
+
+        return f'{day} {months[month]} {year}'
