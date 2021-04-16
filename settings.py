@@ -3,6 +3,7 @@ import pytz
 
 # input data link
 INPUT_DATA = "https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/dati/anagrafica-vaccini-summary-latest.json"
+IMG_INPUT_DATA = "https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/dati/somministrazioni-vaccini-summary-latest.csv"
 
 # bot name
 NAME = "Vaccini Covid-19"
@@ -20,6 +21,7 @@ DAILY_TIME = datetime.time(hour=HOUR, minute=MINUTE, second=SECOND, tzinfo=italy
 TOKEN_FILE = "bot_token"
 SQLITE_FILE = "sqlite/users"
 DATA_FILE = "today_data"
+IMG_FILE = "summary_chart.png"
 
 # utility function to get the bot token
 def get_token() -> str:

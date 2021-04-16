@@ -16,6 +16,7 @@ class MessageGenerator:
     def get_message(self) -> str:
         return self.message
 
+    # generate the message
     def generate(self) -> None:
         # retrive data from local file
         data = self.du.get_data()
@@ -47,11 +48,13 @@ class MessageGenerator:
         
         self.message = message
 
+    # update the message
     def update(self) -> None:
         if self.du.update_data():
             self.generate()
 
-    def parse_date(self):
+    # parse the date in italian format
+    def parse_date(self) -> str:
         months = ['', 'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre']
         today = datetime.today()
         year = today.year
