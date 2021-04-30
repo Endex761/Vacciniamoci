@@ -31,6 +31,8 @@ class MessageGenerator:
         increment_second_dose = today_second_dose - yesterday_second_dose
         percent_first_dose = round(today_first_dose/total_population * 100, 2)
         percent_second_dose = round(today_second_dose/total_population * 100, 2)
+
+        total_doses = increment_first_dose + increment_second_dose
         
         # generate the message
         
@@ -45,6 +47,8 @@ class MessageGenerator:
         message += f'Totale vaccinati fino ad oggi: *{today_second_dose:n}*\n'
         message += f'Incremento giornaliero: *{increment_second_dose:n}*\n'
         message += f'È stato vaccinato il *{percent_second_dose:n}*% della popolazione\n'
+        message += f'\n'
+        message += f'Totale dosi giornaliere: *{total_doses:n}*'
         
         self.message = message
 
