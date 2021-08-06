@@ -4,6 +4,7 @@ from settings import DATA_FILE, INPUT_DATA
 from data_updater import DataUpdater
 
 total_population = 6.036e7 # 60.36 milion
+# total_population = 54006504 # platea updated 21-06-2021
 locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
 
 class MessageGenerator:
@@ -14,6 +15,8 @@ class MessageGenerator:
 
     # return the actual message
     def get_message(self) -> str:
+        if self.message == "No data":
+            self.generate()
         return self.message
 
     # generate the message

@@ -31,7 +31,7 @@ class DataUpdater:
             yesterday_second_dose = file_handler.readline()
 
             file_handler.close()
-
+            
             # if data has increased then update the data
             if first_dose > int(yesterday_first_dose):
                 today_first_dose = str(first_dose) + "\n"

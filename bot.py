@@ -23,7 +23,8 @@ class Bot:
         self.dispatcher = self.updater.dispatcher
         self.messageGenerator = messageGenerator
         self.imageGenerator = imageGenerator
-        messageGenerator.generate()
+        self.messageGenerator.update()
+        # messageGenerator.generate()
         self.message = self.messageGenerator.get_message()
 
         self.job = self.updater.job_queue
@@ -47,6 +48,9 @@ class Bot:
 
         message_handler = CommandHandler("news", self.send_message)
         self.dispatcher.add_handler(message_handler)
+
+        # force_handler = CommandHandler("force", self.force)
+        # self.dispatcher.add_handler(force_handler)
 
         # daily_handler = CommandHandler("daily", self.send_daily)
         # self.dispatcher.add_handler(daily_handler)
@@ -127,6 +131,11 @@ class Bot:
     def update_message(self) -> None:
         self.messageGenerator.update()
         self.message = messageGenerator.get_message()
+
+    # def force(self, chatbot, update):
+    #    chat_id = chatbot.message.chat_id
+    #    #if chat_id == "40136672":
+    #    self.send_daily_message(chatbot)
 
     # start the bot
     def run(self) -> int:
