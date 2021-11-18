@@ -25,18 +25,22 @@ class MessageGenerator:
         data = self.du.get_data()
 
         # compute values
-        today_first_dose = int(data[0])
+        today_first_dose  = int(data[0])
         today_second_dose = int(data[1])
-        yesterday_first_dose = int(data[2])
-        yesterday_second_dose = int(data[3])
+        today_third_dose  = int(data[2])
+        yesterday_first_dose  = int(data[3])
+        yesterday_second_dose = int(data[4])
+        yesterday_third_dose  = int(data[5])
 
-        increment_first_dose = today_first_dose - yesterday_first_dose
+        increment_first_dose  = today_first_dose - yesterday_first_dose
         increment_second_dose = today_second_dose - yesterday_second_dose
-        percent_first_dose = round(today_first_dose/total_population * 100, 2)
+        increment_third_dose  = today_third_dose - yesterday_third_dose
+        percent_first_dose  = round(today_first_dose/total_population * 100, 2)
         percent_second_dose = round(today_second_dose/total_population * 100, 2)
+        percent_third_dose  = round(today_third_dose/total_population * 100, 2)
 
-        total_doses = today_first_dose + today_second_dose
-        total_daily_doses = increment_first_dose + increment_second_dose
+        total_doses = today_first_dose + today_second_dose + today_third_dose
+        total_daily_doses = increment_first_dose + increment_second_dose + increment_third_dose
 
         
         # generate the message
@@ -52,6 +56,11 @@ class MessageGenerator:
         message += f'Totale vaccinati fino ad oggi: *{today_second_dose:n}*\n'
         message += f'Incremento giornaliero: *{increment_second_dose:n}*\n'
         message += f'È stato vaccinato il *{percent_second_dose:n}*% della popolazione\n'
+        message += f'\n'
+        message += f'*Terza Dose*\n'
+        message += f'Totale vaccinati fino ad oggi: *{today_third_dose:n}*\n'
+        message += f'Incremento giornaliero: *{increment_third_dose:n}*\n'
+        message += f'È stato vaccinato il *{percent_third_dose:n}*% della popolazione\n'
         message += f'\n'
         message += f'Totale dosi: *{total_doses:n}* \n'
         message += f'Totale dosi giornaliere: *{total_daily_doses:n}*'
