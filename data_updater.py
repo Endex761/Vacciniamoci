@@ -24,7 +24,7 @@ class DataUpdater:
             for cat in data:
                 first_dose  += cat['prima_dose']
                 second_dose += cat['seconda_dose']
-                third_dose  += cat['dose_booster']
+                third_dose  += cat['dose_addizionale_booster']
 
             # read yesterday data
             file_handler = open(self.outputFile, 'r')
